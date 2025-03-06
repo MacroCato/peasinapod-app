@@ -13,7 +13,7 @@
   }
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,17 +22,170 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 3em;
+}
+
+.App-header nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.App-header nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.App-header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.App-footer {
+  background-color: #282c34;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(7, 7, 148, 0.1);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(7, 7, 148, 0.1);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  /*overflow: hidden;*/
+}
+
+.profile-list-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* overflow: hidden; */
+}
+
+.profile-list {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  padding: 20px;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+.profile-list::-webkit-scrollbar {
+  display: none; 
+}
+
+.profile-card {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.profile-name {
+  color: #333;
+}
+
+.profile-detail {
+  color: #666;
+}
+
+.scroll-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.scroll-button-left {
+  left: 10px;
+}
+
+.scroll-button-right {
+  right: 10px;
+}
+
+/* used on the header */
+.profile-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 3em;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.profile-button i {
+  font-size: 1.5em;
+}
+
+.home-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 3em;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.home-button i {
+  font-size: 1.5em;
 }
