@@ -17,34 +17,44 @@ const Login = () => {
             });
             // Handle successful login (e.g., store token, redirect)
             console.log('Login successful:', response.data);
-            navigate('/profiles'); // Redirect to profiles page
+            const { userId, token } = response.data;
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('token', token); // Store token in local storage
+            navigate('/home'); // Redirect to profiles page
         } catch (error) {
             // Handle login error
             console.error('Login failed:', error);
         }
     };
 
+    const handleRegister = () => {
+        navigate('/register'); // Navigate to the register page
+    };
+
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="login-container">
+            {/* <h1>Login</h1> */}
+            <form className="login-form" onSubmit={handleSubmit}>
                 <div>
-                    <label>Email:</label>
+                    {/* <label>Email:</label> */}
                     <input
                         type="email"
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} required
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    {/* <label>Password:</label> */}
                     <input
                         type="password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)} required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <div><button type="submit">Login</button></div>
+                <div><button type="button" onClick={handleRegister}>Register</button></div>
             </form>
         </div>
     );
