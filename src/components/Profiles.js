@@ -35,7 +35,7 @@ const Profiles = () => {
 
   return (
     <div className="profile-container">
-      <h1>Profiles</h1>
+      {/* <h1>Profiles</h1> */}
       {selectedProfile ? (
         <div className="profile-card">
           <h2 className="profile-name">{selectedProfile.firstName || "N/A"} {selectedProfile.surname}</h2>
