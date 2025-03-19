@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'; // Ensure you have the necessary CSS in App.css
+import '../App.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ const Login = () => {
                 email,
                 password,
             });
-            // Handle successful login (e.g., store token, redirect)
+            // Handle successful login
             console.log('Login successful:', response.data);
             const { userId, token } = response.data;
             localStorage.setItem('userId', userId);
@@ -33,10 +33,8 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            {/* <h1>Login</h1> */}
             <form className="login-form" onSubmit={handleSubmit}>
                 <div>
-                    {/* <label>Email:</label> */}
                     <input
                         type="email"
                         placeholder="Email"
@@ -45,7 +43,6 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    {/* <label>Password:</label> */}
                     <input
                         type="password"
                         placeholder="Password"

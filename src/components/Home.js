@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axiosInstance from './axiosConfig';
-import '../App.css'; // Ensure you have the necessary CSS in App.css
+import '../App.css';
 import './css/Home.css';
 
 const Home = () => {
@@ -17,54 +17,54 @@ const Home = () => {
 
   useEffect(() => {
 
-    // Fetch user 2's profile
+    // Fetch user profile
     axiosInstance.get('/profiles/profile')
       .then(response => {
         console.log('User profile:', response.data);
         setUser(response.data);
-        //fetchData();
       })
       .catch(error => console.error('Error fetching user profile:', error));
     }, []);
 
+    const fetchData = useCallback(() => {
+      // Fetch liked profiles for the user
+      axiosInstance.get(`/likes/user/${userId}`)
+        .then(response => {
+          console.log('Liked profiles:', response.data);
+          setLikedProfiles(response.data);
+        })
+        .catch(error => console.error('Error fetching liked profiles:', error));
+      
+      // Fetch all profiles except the user
+      axiosInstance.get(`/profiles/except/${userId}`)
+        .then(response => {
+          console.log('All profiles:', response.data);
+          setAllProfiles(response.data);
+        })
+        .catch(error => console.error('Error fetching all profiles:', error));
+  
+      // Fetch liked by profiles
+      axiosInstance.get(`/likes/likedBy/${userId}`)
+        .then(response => {
+          console.log('Liked by profiles:', response.data);
+          setLikedByProfiles(response.data);
+        })
+        .catch(error => console.error('Error fetching liked by profiles:', error));
+  
+      // Fetch matches for the user
+      axiosInstance.get(`/matches/${userId}`)
+        .then(response => {
+          console.log('Matches:', response.data);
+          setMatches(response.data);
+        })
+        .catch(error => console.error('Error fetching matches:', error));
+    }, [userId]);
+
     useEffect(() => {
       if (user) {
-        const fetchData = () => {
-          // Fetch liked profiles for the user
-          axiosInstance.get(`/likes/user/${userId}`)
-            .then(response => {
-              console.log('Liked profiles:', response.data);
-              setLikedProfiles(response.data);
-            })
-            .catch(error => console.error('Error fetching liked profiles:', error));
-          
-          // Fetch all profiles except the user
-          axiosInstance.get(`/profiles/except/${userId}`)
-            .then(response => {
-              console.log('All profiles:', response.data);
-              setAllProfiles(response.data);
-            })
-            .catch(error => console.error('Error fetching all profiles:', error));
-
-            axiosInstance.get(`/likes/likedBy/${userId}`)
-            .then(response => {
-              console.log('Liked by profiles:', response.data);
-              setLikedByProfiles(response.data);
-            })
-            .catch(error => console.error('Error fetching all profiles:', error));
-
-          // Fetch matches for the user
-            axiosInstance.get(`/matches/${userId}`)
-            .then(response => {
-              console.log('Matches:', response.data);
-              setMatches(response.data);
-            })
-            .catch(error => console.error('Error fetching matches:', error));
-        };
-  
         fetchData();
       }
-    }, [user, userId]);
+    }, [user, userId, fetchData]);
 
   const handleProfileLikeClick = (profile) => {
     setSelectedLikedProfile(profile);
@@ -83,7 +83,7 @@ const Home = () => {
   };
 
   const handleLikeProfile = (profileId) => {
-    // Implement the unlike functionality
+    // Implement the like functionality
     console.log('Home: Like profile button clicked', profileId);
     axiosInstance.post('/likes', {
             userId: user.userId,
@@ -95,40 +95,9 @@ const Home = () => {
     })
     .then(response => {
         console.log('Home: Like Profile:', response.data);
-        if (user) {
-          const fetchData = () => {
-            axiosInstance.get(`/likes/user/${userId}`)
-              .then(response => {
-                console.log('Liked profiles:', response.data);
-                setLikedProfiles(response.data);
-              })
-              .catch(error => console.error('Error fetching liked profiles:', error));
-
-            axiosInstance.get(`/matches/${userId}`)
-            .then(response => {
-              console.log('Matches:', response.data);
-              setMatches(response.data);
-            })
-            .catch(error => console.error('Error fetching matches:', error));
-
-            axiosInstance.get(`/likes/likedBy/${userId}`)
-            .then(response => {
-              console.log('Liked by profiles:', response.data);
-              setLikedByProfiles(response.data);
-            })
-            .catch(error => console.error('Error fetching all profiles:', error));
-
-            
-            axiosInstance.get(`/profiles/except/${user.id}`)
-              .then(response => {
-                console.log('All profiles:', response.data);
-                setAllProfiles(response.data);
-              })
-              .catch(error => console.error('Error fetching all profiles:', error));
-          };
           fetchData();
         }
-    })
+    )
     .catch((error) => {
     if (error.response) {
         console.error('Response Error:', error.response.data);
@@ -142,17 +111,12 @@ const Home = () => {
     setSelectedLikedProfile(null);
     setSelectedLikedByProfile(null);
     setSelectedProfile(null);
-    // .catch(error => console.error('Error fetching liked profiles:', error));
   };
   
   const handleUnlikeProfile = (profileId) => {
     // Implement the unlike functionality 
     console.log('Unlike profile button clicked', profileId);
-    // For now, just remove the profile from the likedProfiles state
-    // setLikedProfiles(likedProfiles.filter(profile => profile.id !== profileId));
-    // setSelectedLikedProfile(null);
 
-    console.log('Home: Like profile button clicked', profileId);
     axiosInstance.post('/likes/unlike', {
             userId: user.userId,
             profileId: profileId,
@@ -163,39 +127,9 @@ const Home = () => {
     })
     .then(response => {
         console.log('Home: Unlike Profile:', response.data);
-        if (user) {
-          const fetchData = () => {
-            axiosInstance.get(`/likes/user/${userId}`)
-              .then(response => {
-                console.log('Liked profiles:', response.data);
-                setLikedProfiles(response.data);
-              })
-              .catch(error => console.error('Error fetching liked profiles:', error));
-            
-            axiosInstance.get(`/matches/${userId}`)
-            .then(response => {
-              console.log('Matches:', response.data);
-              setMatches(response.data);
-            })
-            .catch(error => console.error('Error fetching matches:', error));
-
-            axiosInstance.get(`/likes/likedBy/${userId}`)
-            .then(response => {
-              console.log('Liked by profiles:', response.data);
-              setLikedByProfiles(response.data);
-            })
-            .catch(error => console.error('Error fetching all profiles:', error));
-
-            axiosInstance.get(`/profiles/except/${user.id}`)
-              .then(response => {
-                console.log('All profiles:', response.data);
-                setAllProfiles(response.data);
-              })
-              .catch(error => console.error('Error fetching all profiles:', error));
-          };
           fetchData();
         }
-    })
+    )
     .catch((error) => {
     if (error.response) {
         console.error('Response Error:', error.response.data);
@@ -217,22 +151,14 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* <h1>Home Page</h1> */}
-      {/* {user ? (
-        <div className="profile-card">
-          <h2 className="profile-detail">{user.nickname}</h2>
-        </div>
-      ) : (
-        <p className="profile-detail">Loading user profile...</p>
-      )} */}
       <h2>Perfectly Compiled: Your Code Just Met Its Match!</h2>
       {selectedMatch ? (
         <div className="profile-card">
           <h2 className="profile-name">{selectedMatch.nickname || "N/A"}</h2>
           <p className="profile-name">{selectedMatch.summary}</p>
           <p className="profile-name"><strong>{selectedMatch.email}</strong></p>
-          <button onClick={() => setSelectedMatch(null)}>Back</button>
-          <button onClick={() => handleUnlikeProfile(selectedMatch.id)}>Unlike</button>
+          <button className="button" onClick={() => handleUnlikeProfile(selectedMatch.id)}>Unlike</button>
+          <button className="button" onClick={() => setSelectedMatch(null)}>Back</button>
         </div>
       ) : (
         <div className="profile-list-wrapper">
@@ -250,8 +176,8 @@ const Home = () => {
         <div className="profile-card">
           <h2 className="profile-name">{selectedLikedByProfile.nickname || "N/A"}</h2>
           <p className="profile-name">{selectedLikedByProfile.summary}</p>
-          <button onClick={() => handleLikeProfile(selectedLikedByProfile.id)}>Like</button>
-          <button onClick={() => setSelectedLikedByProfile(null)}>Back to List</button>
+          <button className="button" onClick={() => handleLikeProfile(selectedLikedByProfile.id)}>Like</button>
+          <button className="button" onClick={() => setSelectedLikedByProfile(null)}>Back</button>
         </div>
       ) : (
         <div className="profile-list-wrapper">
@@ -269,8 +195,8 @@ const Home = () => {
         <div className="profile-card">
           <h2 className="profile-name">{selectedLikedProfile.nickname || "N/A"}</h2>
           <p className="profile-name">{selectedLikedProfile.summary}</p>
-          <button onClick={() => handleUnlikeProfile(selectedLikedProfile.id)}>Unlike</button>
-          <button onClick={handleBackToList}>Back to List</button>
+          <button className="button" onClick={() => handleUnlikeProfile(selectedLikedProfile.id)}>Unlike</button>
+          <button className="button" onClick={handleBackToList}>Back</button>
         </div>
       ) : (
         <div className="profile-list-wrapper">
@@ -289,8 +215,8 @@ const Home = () => {
         <div className="profile-card">
           <h2 className="profile-name">{selectedProfile.nickname || "N/A"}</h2>
           <p className="profile-name">{selectedProfile.summary}</p>
-          <button onClick={() => handleLikeProfile(selectedProfile.id)}>Like</button>
-          <button onClick={() => setSelectedProfile(null)}>Back</button>
+          <button className="button" onClick={() => handleLikeProfile(selectedProfile.id)}>Like</button>
+          <button className="button" onClick={() => setSelectedProfile(null)}>Back</button>
         </div>
       ) : (
       <div className="profile-list-wrapper">
