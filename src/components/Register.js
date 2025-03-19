@@ -19,7 +19,7 @@ const Register = () => {
                 firstName,
                 surname
             });
-            // Handle successful registration (e.g., redirect to login)
+            // Handle successful registration
             console.log('Registration successful:', response.data);
             navigate('/login');
         } catch (error) {
