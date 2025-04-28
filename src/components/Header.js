@@ -21,6 +21,8 @@ const Header = () => {
         return 'Profile';
       case '/edit-profile':
         return 'Edit Profile';
+      case '/search':
+        return 'Search';
       default:
         return 'Peas in a Pod';
     }
@@ -49,6 +51,9 @@ const Header = () => {
       {token && (
         <button onClick={handleLogout} className="fas fa-power-off">Logout</button>
       )}
+      <Link to="/search" className="header-button">
+        <i className="fas fa-search"></i> 
+      </Link>
       <Link to="/profile" className="profile-button">
         <i className="fas fa-user"></i>
       </Link>

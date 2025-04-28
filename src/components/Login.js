@@ -6,6 +6,7 @@ import '../App.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -24,6 +25,7 @@ const Login = () => {
         } catch (error) {
             // Handle login error
             console.error('Login failed:', error);
+            setErrorMessage('Login failed. Invalid email or password.');
         }
     };
 
@@ -50,6 +52,9 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)} required
                     />
                 </div>
+                {errorMessage && (
+                    <div className="error-message">{errorMessage}</div>
+                )}
                 <div><button type="submit">Login</button></div>
                 <div><button type="button" onClick={handleRegister}>Register</button></div>
             </form>
