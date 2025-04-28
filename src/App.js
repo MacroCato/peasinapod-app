@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import EditProfile from './components/EditProfile';
+import Search from './components/Search';
 
 function App() {
   return (
@@ -17,12 +18,13 @@ function App() {
           <Header />
           <main className="App-main">
             <Routes>
-              <Route path="/" element={<Navigate to="/Login" />} />
+              <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/Home" element={<PrivateRoute><Home /></PrivateRoute>} />
               <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
               <Route path="/edit-profile" element={<PrivateRoute><EditProfile /></PrivateRoute>} />
+              <Route path="/search" element={<PrivateRoute><Search /></PrivateRoute>} />
             </Routes>
           </main>
         </header>
