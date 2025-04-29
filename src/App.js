@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import EditProfile from './components/EditProfile';
 import Search from './components/Search';
+import MyLikes from './components/MyLikes';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
               <Route path="/edit-profile" element={<PrivateRoute><EditProfile /></PrivateRoute>} />
               <Route path="/search" element={<PrivateRoute><Search /></PrivateRoute>} />
+              <Route path="/my-likes" element={<PrivateRoute><MyLikes /></PrivateRoute>} />
             </Routes>
           </main>
         </header>

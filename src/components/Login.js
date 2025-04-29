@@ -38,6 +38,7 @@ const Login = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div>
                     <input
+                        id="email"
                         type="email"
                         placeholder="Email"
                         value={email}
@@ -46,6 +47,7 @@ const Login = () => {
                 </div>
                 <div>
                     <input
+                        id="password"
                         type="password"
                         placeholder="Password"
                         value={password}
@@ -53,9 +55,9 @@ const Login = () => {
                     />
                 </div>
                 {errorMessage && (
-                    <div className="error-message">{errorMessage}</div>
+                    <div id="error-message" className="error-message">{errorMessage}</div>
                 )}
-                <div><button type="submit">Login</button></div>
+                <div><button id="login" type="submit">Login</button></div>
                 <div><button type="button" onClick={handleRegister}>Register</button></div>
             </form>
         </div>

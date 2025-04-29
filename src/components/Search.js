@@ -90,7 +90,7 @@ const Search = () => {
                             placeholder="Enter distance"
                             value={distance}
                             onChange={(e) => setDistance(e.target.value)}
-                            required
+                            // required
                         />
                     </div>
 

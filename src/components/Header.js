@@ -23,8 +23,10 @@ const Header = () => {
         return 'Edit Profile';
       case '/search':
         return 'Search';
+      case '/my-likes':
+        return 'My Likes';
       default:
-        return 'Peas in a Pod';
+        return 'Beans in a Pod';
     }
   };
 
@@ -52,11 +54,12 @@ const Header = () => {
         <button onClick={handleLogout} className="fas fa-power-off">Logout</button>
       )}
       <Link to="/search" className="header-button">
-        <i className="fas fa-search"></i> 
+        <i className="fas fa-search">Search</i> 
       </Link>
       <Link to="/profile" className="profile-button">
         <i className="fas fa-user"></i>
       </Link>
+      <Link to="/my-likes" className="header-link">My Likes</Link>
     </header>
   );
 };
